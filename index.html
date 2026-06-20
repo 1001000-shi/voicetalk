@@ -338,59 +338,61 @@ async function enterRoom(code){
 function sendSignal(to,data){ roomRef.child('signals/'+to).push({...data,from:myId}); }
 
 // ═══════════════════════════ PEER CONNECTION ═══════════════════════════
-function initPeer(peerId,info,iAmCaller){
-  const pc=new RTCPeerConnection(ICE);
-  peers[peerId]={pc,name:info.name||peerId,colorIdx:info.color||0,muted:!!info.muted,sharing:!!info.sharing,_iceQ:[]};
+function initPeer(peerId, info, iAmCaller){
+  const pc = new RTCPeerConnection(ICE);
+  peers[peerId] = {pc, name:info.name||peerId, colorIdx:info.color||0, muted:!!info.muted, sharing:!!info.sharing, _iceQ:[], _ready:false};
 
+  // 트랙 먼저 추가 (offer 생성 전)
   addMyTracksToPeer(peerId);
 
-  pc.onicecandidate=e=>{ if(e.candidate) sendSignal(peerId,{type:'ice',candidate:e.candidate.toJSON()}); };
+  pc.onicecandidate = e => {
+    if(e.candidate) sendSignal(peerId, {type:'ice', candidate:e.candidate.toJSON()});
+  };
 
-  pc.ontrack=e=>{
-    const track=e.track;
-    if(track.kind==='audio'){
-      const audio=new Audio();
-      audio.srcObject=new MediaStream([track]);
+  pc.ontrack = e => {
+    const track = e.track;
+    if(track.kind === 'audio'){
+      const audio = new Audio();
+      audio.srcObject = new MediaStream([track]);
       audio.play().catch(()=>{});
-      peers[peerId]._audioEl=audio;
-      peers[peerId]._audioTrack=track;
-    }else if(track.kind==='video'){
-      showRemoteScreen(peerId,new MediaStream([track]));
+      peers[peerId]._audioEl    = audio;
+      peers[peerId]._audioTrack = track;
+    } else if(track.kind === 'video'){
+      const show = () => showRemoteScreen(peerId, new MediaStream([track]));
+      // 트랙이 실제 데이터를 내보낼 때 표시 (모바일 타이밍 문제 해결)
+      if(track.readyState === 'live') show();
+      else track.onunmute = show;
+      track.addEventListener('unmute', show);
     }
   };
 
-  pc.onconnectionstatechange=()=>{
-    const st=pc.connectionState;
-    if(st==='connected'){
-      log(`${peers[peerId]?.name} 연결됨`,'ok');
+  pc.onconnectionstatechange = () => {
+    const st = pc.connectionState;
+    if(st === 'connected'){
+      peers[peerId]._ready = true;
+      log(peers[peerId]?.name + ' 연결됨', 'ok');
       renderPeerCard(peerId);
-      // 연결 완료 시 현재 활성 비디오 트랙을 확실히 전달
-      const vs = cameraStream || screenStream;
-      if(vs){
-        const vt = vs.getVideoTracks()[0];
-        if(vt){
-          const sender = peers[peerId]?.pc.getSenders().find(s=>s.track&&s.track.kind==='video');
-          if(sender) sender.replaceTrack(vt).catch(()=>{});
-          else peers[peerId]?.pc.addTrack(vt, vs);
-        }
-      }
-      // 내 공유 상태도 재broadcast (신규 참가자가 UI 반영하도록)
+      // 연결 완료 후 상태 재broadcast → 신규 참가자 UI에 반영
       broadcastMyState(screenOn || cameraOn);
     }
-    if(st==='failed'||st==='closed') destroyPeer(peerId);
+    if(st === 'failed' || st === 'closed') destroyPeer(peerId);
   };
 
   if(iAmCaller){
-    pc.onnegotiationneeded=async()=>{
+    // setTimeout으로 트랙 추가 완료 후 명시적 offer 생성
+    // (모바일에서 onnegotiationneeded 불안정 문제 회피)
+    setTimeout(async () => {
       try{
-        const offer=await pc.createOffer();
+        if(!peers[peerId]) return;
+        const offer = await pc.createOffer();
         await pc.setLocalDescription(offer);
-        sendSignal(peerId,{type:'offer',sdp:offer.sdp});
-      }catch(e){}
-    };
+        sendSignal(peerId, {type:'offer', sdp:offer.sdp});
+      }catch(e){ log('Offer 오류: '+e.message, 'err'); }
+    }, 200);
   }
 
-  renderPeerCard(peerId); updatePeerCount();
+  renderPeerCard(peerId);
+  updatePeerCount();
 }
 
 function drainIce(peerId){
@@ -418,12 +420,14 @@ function addMyTracksToPeer(peerId){
 
 async function replaceVideoTrack(track){
   for(const pid in peers){
-    const pc=peers[pid].pc;
-    const sender=pc.getSenders().find(s=>s.track&&s.track.kind==='video');
-    if(sender) await sender.replaceTrack(track).catch(()=>{});
-    else if(track){
-      const stream=screenStream||cameraStream;
-      if(stream) pc.addTrack(track,stream);
+    const pc = peers[pid].pc;
+    const sender = pc.getSenders().find(s=>s.track && s.track.kind==='video');
+    if(sender){
+      await sender.replaceTrack(track).catch(()=>{});
+    } else if(track){
+      // sender 없으면 새로 추가 (처음 카메라 켤 때 이미 연결된 peer에 추가)
+      const vs = cameraStream || screenStream;
+      if(vs) pc.addTrack(track, vs);
     }
   }
 }
