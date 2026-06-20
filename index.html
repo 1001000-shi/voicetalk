@@ -8,222 +8,126 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0a0c10;
-  --s1:#111318;
-  --s2:#181c24;
-  --s3:#1f2330;
-  --border:#252b3b;
-  --accent:#5b8af5;
-  --accent-glow:rgba(91,138,245,0.18);
-  --green:#21d07a;
-  --red:#ff4560;
-  --amber:#f5a623;
-  --purple:#9b6dff;
-  --text:#dde1ed;
-  --muted:#5a6278;
-  --mono:'JetBrains Mono',monospace;
-  --sans:'Inter',sans-serif;
+  --bg:#0a0c10;--s1:#111318;--s2:#181c24;--border:#252b3b;
+  --accent:#5b8af5;--green:#21d07a;--red:#ff4560;--amber:#f5a623;--purple:#9b6dff;
+  --text:#dde1ed;--muted:#5a6278;
+  --mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;
 }
 body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
 
-/* ─── HEADER ─── */
-header{
-  display:flex;align-items:center;gap:14px;
-  padding:0 28px;height:54px;
-  background:var(--s1);border-bottom:1px solid var(--border);
-  position:sticky;top:0;z-index:200;flex-shrink:0;
-}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-icon{
-  width:30px;height:30px;border-radius:7px;
-  background:linear-gradient(135deg,var(--accent),var(--purple));
-  display:flex;align-items:center;justify-content:center;font-size:15px;
-}
-.logo-name{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.3px}
+/* HEADER */
+header{display:flex;align-items:center;gap:14px;padding:0 20px;height:54px;background:var(--s1);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;flex-shrink:0}
+.logo{display:flex;align-items:center;gap:9px}
+.logo-icon{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:15px}
+.logo-name{font-size:15px;font-weight:700;letter-spacing:-.3px}
 .logo-name em{color:var(--accent);font-style:normal}
-.hdr-right{margin-left:auto;display:flex;align-items:center;gap:10px}
-.status-pill{
-  display:flex;align-items:center;gap:6px;
-  padding:4px 10px;border-radius:20px;
-  background:var(--s2);border:1px solid var(--border);
-  font-size:11px;color:var(--muted);font-family:var(--mono);
-}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.status-pill{display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;background:var(--s2);border:1px solid var(--border);font-size:11px;color:var(--muted);font-family:var(--mono)}
 .status-dot{width:6px;height:6px;border-radius:50%;background:var(--muted);transition:background .3s,box-shadow .3s}
 .status-dot.on{background:var(--green);box-shadow:0 0 7px var(--green)}
-.status-dot.err{background:var(--red);box-shadow:0 0 7px var(--red)}
 
-/* ─── MAIN ─── */
-main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 20px;gap:24px;max-width:1200px;width:100%;margin:0 auto}
+/* MAIN */
+main{flex:1;display:flex;flex-direction:column;align-items:center;padding:24px 16px;gap:16px;max-width:1100px;width:100%;margin:0 auto}
 
-/* ─── CARDS ─── */
-.card{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:24px}
-
-/* ─── FIREBASE SETUP ─── */
-#fbSetup{width:100%;max-width:520px}
-#fbSetup h2{font-size:17px;font-weight:600;margin-bottom:6px}
-#fbSetup .sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:18px}
-.info-box{
-  background:rgba(91,138,245,.07);border:1px solid rgba(91,138,245,.18);
-  border-radius:8px;padding:13px 15px;font-size:12px;color:#99b4f7;
-  line-height:1.7;margin-bottom:16px;
-}
-.info-box a{color:var(--accent)}
-.lbl{font-size:10px;font-weight:600;letter-spacing:.9px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-textarea.cfg{
-  width:100%;min-height:110px;resize:vertical;
-  background:var(--s2);border:1px solid var(--border);border-radius:8px;
-  padding:11px 13px;color:var(--text);font-family:var(--mono);font-size:12px;
-  outline:none;transition:border .2s;
-}
-textarea.cfg:focus{border-color:var(--accent)}
-
-/* ─── LOBBY ─── */
-#lobby{width:100%;max-width:460px;display:none;flex-direction:column;gap:20px}
-.lobby-hero{text-align:center;padding:8px 0 4px}
-.lobby-hero h1{font-size:30px;font-weight:700;letter-spacing:-1px;line-height:1.2;
-  background:linear-gradient(130deg,#dde1ed 40%,var(--accent));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.lobby-hero p{color:var(--muted);font-size:13px;margin-top:8px}
+/* LOBBY */
+#lobby{width:100%;max-width:440px;display:none;flex-direction:column;gap:16px}
+.lobby-hero{text-align:center;padding:8px 0}
+.lobby-hero h1{font-size:28px;font-weight:700;letter-spacing:-1px;background:linear-gradient(130deg,#dde1ed 40%,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.lobby-hero p{color:var(--muted);font-size:13px;margin-top:6px}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:22px}
 .field{display:flex;flex-direction:column;gap:6px}
-input.txt{
-  background:var(--s2);border:1px solid var(--border);border-radius:8px;
-  padding:10px 14px;color:var(--text);font-family:var(--sans);font-size:13px;outline:none;
-  transition:border .2s;
-}
+.lbl{font-size:10px;font-weight:600;letter-spacing:.9px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+input.txt{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-size:13px;outline:none;transition:border .2s}
 input.txt:focus{border-color:var(--accent)}
 input.txt::placeholder{color:var(--muted)}
 .row{display:flex;gap:8px}
 .divider{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:10px;letter-spacing:1px;text-transform:uppercase}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
 
-/* ─── BUTTONS ─── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;border-radius:8px;border:none;font-size:12px;font-weight:500;font-family:var(--sans);cursor:pointer;transition:all .15s;white-space:nowrap;outline:none}
-.btn-primary{background:var(--accent);color:#fff}
-.btn-primary:hover{background:#7099ff;transform:translateY(-1px)}
-.btn-ghost{background:var(--s2);color:var(--text);border:1px solid var(--border)}
-.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
-.btn-red{background:rgba(255,69,96,.1);color:var(--red);border:1px solid rgba(255,69,96,.2)}
-.btn-red:hover{background:rgba(255,69,96,.2)}
-.btn-green{background:rgba(33,208,122,.1);color:var(--green);border:1px solid rgba(33,208,122,.2)}
-.btn-green:hover{background:rgba(33,208,122,.2)}
-.btn-amber{background:rgba(245,166,35,.1);color:var(--amber);border:1px solid rgba(245,166,35,.2)}
-.btn-amber:hover{background:rgba(245,166,35,.2)}
-.btn-purple{background:rgba(155,109,255,.1);color:var(--purple);border:1px solid rgba(155,109,255,.2)}
-.btn-purple:hover{background:rgba(155,109,255,.2)}
-.btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:9px 14px;border-radius:8px;border:none;font-size:12px;font-weight:500;font-family:var(--sans);cursor:pointer;transition:all .15s;white-space:nowrap;outline:none}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#7099ff}
+.btn-ghost{background:var(--s2);color:var(--text);border:1px solid var(--border)}.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn-red{background:rgba(255,69,96,.1);color:var(--red);border:1px solid rgba(255,69,96,.2)}.btn-red:hover{background:rgba(255,69,96,.22)}
+.btn-green{background:rgba(33,208,122,.1);color:var(--green);border:1px solid rgba(33,208,122,.2)}.btn-green:hover{background:rgba(33,208,122,.22)}
+.btn-amber{background:rgba(245,166,35,.1);color:var(--amber);border:1px solid rgba(245,166,35,.2)}.btn-amber:hover{background:rgba(245,166,35,.22)}
+.btn-purple{background:rgba(155,109,255,.1);color:var(--purple);border:1px solid rgba(155,109,255,.2)}.btn-purple:hover{background:rgba(155,109,255,.22)}
 .btn-full{width:100%}
-.btn-sm{padding:5px 11px;font-size:11px;border-radius:6px}
+.btn-sm{padding:5px 10px;font-size:11px;border-radius:6px}
+.btn:disabled{opacity:.35;cursor:not-allowed}
 
-/* ─── ROOM ─── */
-#room{width:100%;display:none;flex-direction:column;gap:16px}
+/* ROOM */
+#room{width:100%;display:none;flex-direction:column;gap:14px}
+.room-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:11px 16px}
+.room-code{font-family:var(--mono);font-size:13px;color:var(--accent);background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;letter-spacing:.5px}
+.room-meta{margin-left:auto;display:flex;align-items:center;gap:8px}
+.peer-badge{display:flex;align-items:center;gap:5px;background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:3px 10px;font-size:12px;color:var(--muted)}
 
-/* room header bar */
-.room-bar{
-  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-  background:var(--s1);border:1px solid var(--border);border-radius:12px;
-  padding:12px 18px;
-}
-.room-code{font-family:var(--mono);font-size:13px;color:var(--accent);
-  background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:4px 10px;letter-spacing:.5px}
-.room-meta{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:12px;color:var(--muted)}
-.peer-badge{
-  display:flex;align-items:center;gap:5px;
-  background:var(--s2);border:1px solid var(--border);border-radius:20px;padding:3px 10px;
-}
-
-/* ─── SCREEN SHARE AREA ─── */
-#screenArea{
-  background:var(--s1);border:1px solid var(--border);border-radius:14px;
-  overflow:hidden;position:relative;display:none;
-}
-#screenArea video{width:100%;max-height:52vh;object-fit:contain;background:#000;display:block}
-.screen-label{
-  position:absolute;top:10px;left:12px;
-  font-size:11px;font-family:var(--mono);color:var(--text);
-  background:rgba(0,0,0,.55);backdrop-filter:blur(8px);
-  padding:3px 9px;border-radius:5px;display:flex;align-items:center;gap:6px;
-}
-.rec-dot{width:7px;height:7px;border-radius:50%;background:var(--red);
-  animation:blink 1.2s ease-in-out infinite}
+/* SCREEN SHARE */
+#screenArea{background:var(--s1);border:1px solid var(--border);border-radius:14px;overflow:hidden;position:relative;display:none}
+#screenVideo{width:100%;max-height:50vh;object-fit:contain;background:#000;display:block}
+.screen-label{position:absolute;top:10px;left:12px;font-size:11px;font-family:var(--mono);color:var(--text);background:rgba(0,0,0,.55);backdrop-filter:blur(8px);padding:3px 9px;border-radius:5px;display:flex;align-items:center;gap:6px}
+.rec-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:blink 1.2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
 
-/* ─── PARTICIPANTS GRID ─── */
-.participants-title{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);padding:0 2px}
-.participants-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
-  gap:10px;
-}
-.peer-card{
-  background:var(--s2);border:1px solid var(--border);border-radius:11px;
-  padding:14px 12px 12px;
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  position:relative;transition:border .2s;
-}
-.peer-card.speaking{border-color:var(--green);box-shadow:0 0 0 2px rgba(33,208,122,.15)}
-.peer-card.me-card{border-color:rgba(91,138,245,.35)}
-.peer-avatar{
-  width:48px;height:48px;border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--purple));
-  display:flex;align-items:center;justify-content:center;
-  font-size:19px;font-weight:700;color:#fff;
-  flex-shrink:0;
-}
-.peer-avatar.av-green{background:linear-gradient(135deg,#21d07a,#0fb35f)}
-.peer-avatar.av-amber{background:linear-gradient(135deg,#f5a623,#d48a0a)}
-.peer-avatar.av-purple{background:linear-gradient(135deg,#9b6dff,#7040e0)}
-.peer-avatar.av-red{background:linear-gradient(135deg,#ff4560,#d42040)}
-.peer-avatar.av-teal{background:linear-gradient(135deg,#00cec9,#0099a8)}
-.peer-name{font-size:12px;font-weight:500;color:var(--text);text-align:center;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* CAMERA PREVIEW */
+#cameraArea{background:#000;border:1px solid var(--border);border-radius:14px;overflow:hidden;position:relative;display:none}
+#cameraVideo{width:100%;max-height:40vh;object-fit:cover;display:block}
+.camera-controls{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
+.camera-label{position:absolute;top:10px;left:12px;font-size:11px;font-family:var(--mono);color:#fff;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);padding:3px 9px;border-radius:5px}
+
+/* RECORDING INDICATOR */
+.rec-banner{display:none;align-items:center;gap:8px;background:rgba(255,69,96,.1);border:1px solid rgba(255,69,96,.25);border-radius:10px;padding:10px 16px;font-size:12px;color:var(--red)}
+.rec-banner.active{display:flex}
+.rec-timer{font-family:var(--mono);font-weight:600;margin-left:auto}
+
+/* PARTICIPANTS */
+.section-title{font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);padding:0 2px}
+.participants-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.peer-card{background:var(--s2);border:1px solid var(--border);border-radius:11px;padding:14px 12px 12px;display:flex;flex-direction:column;align-items:center;gap:7px;transition:border .2s}
+.peer-card.me-card{border-color:rgba(91,138,245,.3)}
+.peer-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;flex-shrink:0}
+.av-blue{background:linear-gradient(135deg,#5b8af5,#3a6de0)}
+.av-green{background:linear-gradient(135deg,#21d07a,#0fb35f)}
+.av-amber{background:linear-gradient(135deg,#f5a623,#d48a0a)}
+.av-purple{background:linear-gradient(135deg,#9b6dff,#7040e0)}
+.av-red{background:linear-gradient(135deg,#ff4560,#d42040)}
+.av-teal{background:linear-gradient(135deg,#00cec9,#0099a8)}
+.peer-name{font-size:12px;font-weight:500;text-align:center;max-width:106px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .peer-tags{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}
 .tag{font-size:9px;padding:2px 6px;border-radius:4px;font-family:var(--mono);font-weight:500}
 .tag-muted{background:rgba(255,69,96,.12);color:var(--red);border:1px solid rgba(255,69,96,.2)}
 .tag-speaking{background:rgba(33,208,122,.12);color:var(--green);border:1px solid rgba(33,208,122,.2)}
 .tag-sharing{background:rgba(155,109,255,.12);color:var(--purple);border:1px solid rgba(155,109,255,.2)}
-.peer-mute-btn{
-  display:none; /* only shows on "me" card */
-}
-.me-card .peer-mute-btn{display:flex}
 
-/* ─── CONTROLS BAR ─── */
-.ctrl-bar{
-  background:var(--s1);border:1px solid var(--border);border-radius:12px;
-  padding:14px 18px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
-}
-.ctrl-group{display:flex;gap:7px;flex-wrap:wrap}
+/* CONTROLS */
+.ctrl-bar{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:13px 16px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.ctrl-group{display:flex;gap:6px;flex-wrap:wrap}
 .ctrl-sep{flex:1}
 
-/* ─── LOG ─── */
-.log-wrap{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:12px 16px;max-height:100px;overflow-y:auto}
+/* LOG */
+.log-wrap{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:10px 14px;max-height:90px;overflow-y:auto}
 .log-wrap p{font-size:11px;font-family:var(--mono);color:var(--muted);margin-bottom:2px;line-height:1.5}
 .log-wrap p .ts{color:var(--purple)}
 .log-wrap p.ok .m{color:var(--green)}
 .log-wrap p.err .m{color:var(--red)}
 .log-wrap p.warn .m{color:var(--amber)}
 
-/* ─── SCROLLBAR ─── */
-::-webkit-scrollbar{width:4px;height:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
-
-@media(max-width:600px){
-  main{padding:16px 12px}
-  .participants-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
-  .ctrl-bar{justify-content:center}.ctrl-sep{display:none}
-}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+@media(max-width:580px){.ctrl-bar{justify-content:center}.ctrl-sep{display:none}.participants-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}}
 </style>
 </head>
 <body>
 
 <header>
-  <a class="logo" href="#">
+  <div class="logo">
     <div class="logo-icon">🔗</div>
     <div class="logo-name">Link<em>Room</em></div>
-  </a>
+  </div>
   <div class="hdr-right">
     <div class="status-pill">
       <div class="status-dot" id="sDot"></div>
-      <span id="sLabel">대기 중</span>
+      <span id="sLabel">연결 중...</span>
     </div>
   </div>
 </header>
@@ -233,10 +137,10 @@ input.txt::placeholder{color:var(--muted)}
 <!-- 로비 -->
 <div id="lobby">
   <div class="lobby-hero">
-    <h1>최대 10명<br>실시간 회의</h1>
+    <h1>최대 10명 실시간 회의</h1>
     <p>방 코드 하나로 연결 · 설치 없음 · 무료</p>
   </div>
-  <div class="card" style="display:flex;flex-direction:column;gap:16px">
+  <div class="card" style="display:flex;flex-direction:column;gap:14px">
     <div class="field">
       <div class="lbl">내 이름</div>
       <input class="txt" id="myName" type="text" placeholder="표시될 이름" maxlength="18">
@@ -253,8 +157,9 @@ input.txt::placeholder{color:var(--muted)}
   </div>
 </div>
 
-<!-- ③ 통화방 -->
+<!-- 통화방 -->
 <div id="room">
+
   <!-- 방 헤더 -->
   <div class="room-bar">
     <span style="font-size:11px;color:var(--muted)">방 코드</span>
@@ -263,8 +168,24 @@ input.txt::placeholder{color:var(--muted)}
     <div class="room-meta">
       <div class="peer-badge">
         <div class="status-dot on"></div>
-        <span id="pCount">1명 참여 중</span>
+        <span id="pCount">1명</span>
       </div>
+    </div>
+  </div>
+
+  <!-- 녹화 중 배너 -->
+  <div class="rec-banner" id="recBanner">
+    <div class="rec-dot"></div>
+    <span>녹화 중 — 내 화면에서만 진행됩니다</span>
+    <span class="rec-timer" id="recTimer">00:00</span>
+  </div>
+
+  <!-- 카메라 미리보기 (내 카메라 켰을 때) -->
+  <div id="cameraArea">
+    <video id="cameraVideo" autoplay muted playsinline></video>
+    <div class="camera-label" id="cameraLabel">📷 카메라</div>
+    <div class="camera-controls">
+      <button class="btn btn-ghost btn-sm" onclick="flipCamera()" id="btnFlip">🔄 카메라 전환</button>
     </div>
   </div>
 
@@ -275,19 +196,20 @@ input.txt::placeholder{color:var(--muted)}
     <button class="btn btn-red btn-sm" id="stopScreenBtn" style="position:absolute;top:10px;right:12px;display:none" onclick="stopMyScreen()">■ 중지</button>
   </div>
 
-  <!-- 참가자 그리드 -->
-  <div class="participants-title">참가자</div>
+  <!-- 참가자 -->
+  <div class="section-title">참가자</div>
   <div class="participants-grid" id="pGrid"></div>
 
   <!-- 컨트롤 바 -->
   <div class="ctrl-bar">
     <div class="ctrl-group">
       <button class="btn btn-ghost" id="btnMic" onclick="toggleMyMic()">🎙️ 마이크 켜기</button>
-      <button class="btn btn-ghost" id="btnScreen" onclick="toggleMyScreen()">🖥️ 화면 공유</button>
       <button class="btn btn-ghost" id="btnCamera" onclick="toggleMyCamera()">📷 카메라 켜기</button>
+      <button class="btn btn-ghost" id="btnScreen" onclick="toggleMyScreen()">🖥️ 화면 공유</button>
     </div>
     <div class="ctrl-sep"></div>
     <div class="ctrl-group">
+      <button class="btn btn-purple" id="btnRec" onclick="toggleRecording()">⏺ 녹화 시작</button>
       <button class="btn btn-red" onclick="leaveRoom()">📴 나가기</button>
     </div>
   </div>
@@ -298,43 +220,32 @@ input.txt::placeholder{color:var(--muted)}
 
 </main>
 
-<!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-
 <script>
-// ═══════════════════════════════════════════════════════
-//  CONSTANTS & STATE
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════ STATE ═══════════════════════════
 const ICE = { iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'}] };
-const COLORS = ['','av-green','av-amber','av-purple','av-red','av-teal'];
-const MAX_PEERS = 10;
+const AV_COLORS = ['av-blue','av-green','av-amber','av-purple','av-red','av-teal'];
 
-let db = null;
-let roomId = null;
-let myId   = 'u_' + Date.now().toString(36) + Math.random().toString(36).slice(2,5);
+let db=null, roomId=null, roomRef=null, membersRef=null;
+let myId   = 'u_'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
 let myName = '나';
-let myColorIdx = Math.floor(Math.random()*5)+1;
+let myColorIdx = Math.floor(Math.random()*6);
+let peers = {};  // peerId → {pc, name, colorIdx, muted, sharing, _audioEl, _iceQ}
 
 // streams
-let micStream    = null;   // audio
-let cameraStream = null;   // video (camera)
-let screenStream = null;   // video (screen)
-let micEnabled   = false;
-let cameraOn     = false;
-let screenOn     = false;
+let micStream=null, cameraStream=null, screenStream=null;
+let micEnabled=false, cameraOn=false, screenOn=false;
+let facingMode='environment'; // 후면 카메라 기본
 
-// mesh peers: peerId → { pc, dc, name, colorIdx, muted, sharing }
-let peers = {};
+// recording
+let mediaRecorder=null, recChunks=[], recInterval=null, recSec=0;
+let isRecording=false;
+// AudioContext for mixing all peer audio + mic
+let recAudioCtx=null, recDest=null;
 
-// Firebase refs
-let roomRef    = null;
-let membersRef = null;
-
-// ═══════════════════════════════════════════════════════
-//  FIREBASE
-// ═══════════════════════════════════════════════════════
-window.addEventListener('load', () => {
+// ═══════════════════════════ FIREBASE ═══════════════════════════
+window.addEventListener('load', ()=>{
   const cfg = {
     apiKey: "AIzaSyAzgxhtWtq0EBlGQa1GdXyQ37dYzzoySIQ",
     authDomain: "voicetalk-be76e.firebaseapp.com",
@@ -344,176 +255,142 @@ window.addEventListener('load', () => {
     messagingSenderId: "131004300500",
     appId: "1:131004300500:web:37629440a9769a304e4f41"
   };
-  try {
+  try{
     if(firebase.apps.length) firebase.apps.forEach(a=>a.delete());
     firebase.initializeApp(cfg);
-    db = firebase.database();
-    show('lobby', true);
+    db=firebase.database();
+    show('lobby',true);
     setStatus('연결됨','on');
     log('Firebase 연결 완료','ok');
-  } catch(e) {
-    alert('Firebase 초기화 실패:\n'+e.message);
-  }
+  }catch(e){ setStatus('오류','err'); log('Firebase 오류: '+e.message,'err'); }
 });
 
-// ═══════════════════════════════════════════════════════
-//  ROOM LIFECYCLE
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════ ROOM ═══════════════════════════
 function genCode(){ return 'ROOM-'+Math.random().toString(36).slice(2,6).toUpperCase(); }
-
-function createRoom(){
-  myName = document.getElementById('myName').value.trim()||'나';
-  enterRoom(genCode());
-}
+function createRoom(){ myName=document.getElementById('myName').value.trim()||'나'; enterRoom(genCode()); }
 function joinRoom(){
-  myName = document.getElementById('myName').value.trim()||'나';
-  const c = document.getElementById('joinCode').value.trim().toUpperCase();
-  if(!c){ alert('방 코드를 입력하세요'); return; }
+  myName=document.getElementById('myName').value.trim()||'나';
+  const c=document.getElementById('joinCode').value.trim().toUpperCase();
+  if(!c){alert('방 코드를 입력하세요');return;}
   enterRoom(c);
 }
 
 async function enterRoom(code){
-  roomId = code;
+  roomId=code;
   show('lobby',false); show('room',true);
-  document.getElementById('rCode').textContent = roomId;
-  document.getElementById('room').style.display = 'flex';
+  document.getElementById('rCode').textContent=roomId;
 
   roomRef    = db.ref('rooms/'+roomId);
   membersRef = roomRef.child('members');
 
-  // 마이크 자동 시작
   await startMic();
 
-  // 내 정보 등록
-  await membersRef.child(myId).set({ name:myName, color:myColorIdx, muted:!micEnabled, sharing:false, ts:Date.now() });
+  await membersRef.child(myId).set({name:myName,color:myColorIdx,muted:!micEnabled,sharing:false,ts:Date.now()});
   membersRef.child(myId).onDisconnect().remove();
 
-  // 기존 멤버 목록 받아서 연결
-  const snap = await membersRef.once('value');
-  const existing = [];
-  snap.forEach(c=>{ if(c.key!==myId) existing.push(c.key); });
-
-  // 멤버 추가/제거 감지
   membersRef.on('child_added', snap=>{
-    const pid = snap.key;
-    if(pid===myId) { renderMe(); return; }
+    const pid=snap.key;
+    if(pid===myId){renderMe();return;}
     if(peers[pid]) return;
-    initPeer(pid, snap.val(), true/*imCaller*/);
-    log(`${snap.val().name || pid} 님이 참여했습니다`,'ok');
+    initPeer(pid,snap.val(),true);
+    log(`${snap.val().name||pid} 님 참여`,'ok');
   });
   membersRef.on('child_removed', snap=>{
-    const pid = snap.key;
-    if(peers[pid]){ destroyPeer(pid); }
-    log(`${snap.val().name||pid} 님이 퇴장했습니다`,'warn');
+    const pid=snap.key;
+    if(peers[pid]) destroyPeer(pid);
+    log(`${snap.val().name||pid} 님 퇴장`,'warn');
     updatePeerCount();
   });
   membersRef.on('child_changed', snap=>{
     if(snap.key===myId) return;
-    if(peers[snap.key]) updatePeerCard(snap.key, snap.val());
+    if(peers[snap.key]) updatePeerCard(snap.key,snap.val());
   });
 
-  // 시그널 수신
   roomRef.child('signals/'+myId).on('child_added', async snap=>{
-    const data = snap.val();
-    if(!data) return;
+    const data=snap.val(); if(!data) return;
     snap.ref.remove();
-    const from = data.from;
-    if(!peers[from] && data.type==='offer'){
-      const mSnap = await membersRef.child(from).get();
-      initPeer(from, mSnap.val()||{name:from,color:1}, false/*imCallee*/);
+    const from=data.from;
+    if(!peers[from]&&data.type==='offer'){
+      const ms=await membersRef.child(from).get();
+      initPeer(from,ms.val()||{name:from,color:0},false);
     }
     if(!peers[from]) return;
-    const pc = peers[from].pc;
+    const pc=peers[from].pc;
     if(data.type==='offer'){
       await pc.setRemoteDescription({type:'offer',sdp:data.sdp});
-      const answer = await pc.createAnswer();
-      await pc.setLocalDescription(answer);
-      sendSignal(from,{type:'answer',sdp:answer.sdp});
+      const ans=await pc.createAnswer();
+      await pc.setLocalDescription(ans);
+      sendSignal(from,{type:'answer',sdp:ans.sdp});
       drainIce(from);
-    } else if(data.type==='answer'){
+    }else if(data.type==='answer'){
       await pc.setRemoteDescription({type:'answer',sdp:data.sdp});
       drainIce(from);
-    } else if(data.type==='ice'){
+    }else if(data.type==='ice'){
       if(pc.remoteDescription) await pc.addIceCandidate(data.candidate).catch(()=>{});
-      else { peers[from]._iceQ = peers[from]._iceQ||[]; peers[from]._iceQ.push(data.candidate); }
+      else{peers[from]._iceQ=peers[from]._iceQ||[];peers[from]._iceQ.push(data.candidate);}
     }
   });
 
-  renderMe();
-  updatePeerCount();
-  log('방에 입장했습니다 · 코드: '+roomId,'ok');
+  renderMe(); updatePeerCount();
+  log('입장 완료 · 코드: '+roomId,'ok');
 }
 
-function sendSignal(to, data){
-  roomRef.child('signals/'+to).push({...data, from:myId});
-}
+function sendSignal(to,data){ roomRef.child('signals/'+to).push({...data,from:myId}); }
 
-// ═══════════════════════════════════════════════════════
-//  PEER CONNECTION
-// ═══════════════════════════════════════════════════════
-function initPeer(peerId, info, iAmCaller){
-  const pc = new RTCPeerConnection(ICE);
-  peers[peerId] = { pc, name:info.name||peerId, colorIdx:info.color||1, muted:!!info.muted, sharing:!!info.sharing, _iceQ:[] };
+// ═══════════════════════════ PEER CONNECTION ═══════════════════════════
+function initPeer(peerId,info,iAmCaller){
+  const pc=new RTCPeerConnection(ICE);
+  peers[peerId]={pc,name:info.name||peerId,colorIdx:info.color||0,muted:!!info.muted,sharing:!!info.sharing,_iceQ:[]};
 
-  // 내 트랙 추가
   addMyTracksToPeer(peerId);
 
-  pc.onicecandidate = e=>{
-    if(e.candidate) sendSignal(peerId,{type:'ice',candidate:e.candidate.toJSON()});
-  };
+  pc.onicecandidate=e=>{ if(e.candidate) sendSignal(peerId,{type:'ice',candidate:e.candidate.toJSON()}); };
 
-  pc.ontrack = e=>{
-    const track = e.track;
+  pc.ontrack=e=>{
+    const track=e.track;
     if(track.kind==='audio'){
-      const audio = new Audio();
-      audio.srcObject = new MediaStream([track]);
+      const audio=new Audio();
+      audio.srcObject=new MediaStream([track]);
       audio.play().catch(()=>{});
-      peers[peerId]._audioEl = audio;
-    } else if(track.kind==='video'){
-      // 화면 공유 비디오 처리
-      showRemoteScreen(peerId, new MediaStream([track]));
+      peers[peerId]._audioEl=audio;
+      peers[peerId]._audioTrack=track;
+    }else if(track.kind==='video'){
+      showRemoteScreen(peerId,new MediaStream([track]));
     }
   };
 
-  pc.onconnectionstatechange = ()=>{
-    const st = pc.connectionState;
-    if(st==='connected'){
-      log(`${peers[peerId]?.name} 연결됨`,'ok');
-      renderPeerCard(peerId);
-    }
+  pc.onconnectionstatechange=()=>{
+    const st=pc.connectionState;
+    if(st==='connected'){log(`${peers[peerId]?.name} 연결됨`,'ok');renderPeerCard(peerId);}
     if(st==='failed'||st==='closed') destroyPeer(peerId);
   };
 
-  // offer
   if(iAmCaller){
-    pc.onnegotiationneeded = async ()=>{
+    pc.onnegotiationneeded=async()=>{
       try{
-        const offer = await pc.createOffer();
+        const offer=await pc.createOffer();
         await pc.setLocalDescription(offer);
         sendSignal(peerId,{type:'offer',sdp:offer.sdp});
       }catch(e){}
     };
   }
 
-  renderPeerCard(peerId);
-  updatePeerCount();
+  renderPeerCard(peerId); updatePeerCount();
 }
 
 function drainIce(peerId){
-  const p = peers[peerId]; if(!p) return;
+  const p=peers[peerId];if(!p)return;
   (p._iceQ||[]).forEach(c=>p.pc.addIceCandidate(c).catch(()=>{}));
   p._iceQ=[];
 }
 
 function addMyTracksToPeer(peerId){
-  const p = peers[peerId]; if(!p) return;
-  const pc = p.pc;
-  // audio
+  const p=peers[peerId];if(!p)return;
+  const pc=p.pc;
   if(micStream) micStream.getAudioTracks().forEach(t=>{
     if(!pc.getSenders().find(s=>s.track===t)) pc.addTrack(t,micStream);
   });
-  // video (camera or screen)
-  const vs = screenStream||cameraStream;
+  const vs=screenStream||cameraStream;
   if(vs) vs.getVideoTracks().forEach(t=>{
     if(!pc.getSenders().find(s=>s.track===t)) pc.addTrack(t,vs);
   });
@@ -521,104 +398,118 @@ function addMyTracksToPeer(peerId){
 
 async function replaceVideoTrack(track){
   for(const pid in peers){
-    const pc = peers[pid].pc;
-    const sender = pc.getSenders().find(s=>s.track&&s.track.kind==='video');
+    const pc=peers[pid].pc;
+    const sender=pc.getSenders().find(s=>s.track&&s.track.kind==='video');
     if(sender) await sender.replaceTrack(track).catch(()=>{});
     else if(track){
-      const stream = screenStream||cameraStream;
+      const stream=screenStream||cameraStream;
       if(stream) pc.addTrack(track,stream);
     }
   }
 }
 
-function destroyPeer(peerId){
-  const p = peers[peerId]; if(!p) return;
-  p.pc.close();
-  if(p._audioEl){ p._audioEl.pause(); p._audioEl=null; }
-  delete peers[peerId];
-  document.getElementById('pc-'+peerId)?.remove();
-  updatePeerCount();
-  // 화면 공유 중이던 사람이 나갔으면 숨김
-  if(document.getElementById('screenOwnerLabel').textContent.includes(p.name)){
-    hideScreen();
-  }
-}
-
-// ═══════════════════════════════════════════════════════
-//  MEDIA CONTROLS
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════ MEDIA ═══════════════════════════
 async function startMic(){
   try{
-    micStream = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true},video:false});
-    micEnabled = true;
+    micStream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true},video:false});
+    micEnabled=true;
     document.getElementById('btnMic').className='btn btn-green';
     document.getElementById('btnMic').textContent='🎙️ 마이크 끄기';
     log('마이크 켜짐','ok');
   }catch(e){
-    micStream = new MediaStream();
-    micEnabled = false;
+    micStream=new MediaStream(); micEnabled=false;
     log('마이크 오류: '+e.message,'err');
   }
   await broadcastMyState();
 }
 
 async function toggleMyMic(){
-  if(!micStream||micStream.getTracks().length===0){ await startMic(); return; }
-  micEnabled = !micEnabled;
+  if(!micStream||micStream.getTracks().length===0){await startMic();return;}
+  micEnabled=!micEnabled;
   micStream.getAudioTracks().forEach(t=>t.enabled=micEnabled);
   const btn=document.getElementById('btnMic');
-  if(micEnabled){ btn.className='btn btn-green'; btn.textContent='🎙️ 마이크 끄기'; }
-  else { btn.className='btn btn-ghost'; btn.textContent='🎙️ 마이크 켜기'; }
-  await broadcastMyState();
-  renderMe();
+  if(micEnabled){btn.className='btn btn-green';btn.textContent='🎙️ 마이크 끄기';}
+  else{btn.className='btn btn-ghost';btn.textContent='🎙️ 마이크 켜기';}
+  await broadcastMyState(); renderMe();
   log('마이크 '+(micEnabled?'켜짐':'꺼짐'));
 }
 
+// 카메라 켜기/끄기
 async function toggleMyCamera(){
   if(cameraOn){
     cameraStream?.getTracks().forEach(t=>t.stop()); cameraStream=null; cameraOn=false;
     await replaceVideoTrack(null);
+    document.getElementById('cameraArea').style.display='none';
     document.getElementById('btnCamera').className='btn btn-ghost';
     document.getElementById('btnCamera').textContent='📷 카메라 켜기';
     log('카메라 끄기');
-  } else {
-    try{
-      cameraStream = await navigator.mediaDevices.getUserMedia({video:true});
-      cameraOn=true; screenOn=false;
-      if(screenStream){ screenStream.getTracks().forEach(t=>t.stop()); screenStream=null; }
-      await replaceVideoTrack(cameraStream.getVideoTracks()[0]);
-      document.getElementById('btnCamera').className='btn btn-green';
-      document.getElementById('btnCamera').textContent='📷 카메라 끄기';
-      document.getElementById('btnScreen').className='btn btn-ghost';
-      document.getElementById('btnScreen').textContent='🖥️ 화면 공유';
-      log('카메라 켜짐','ok');
-    }catch(e){ log('카메라 오류: '+e.message,'err'); }
+  }else{
+    await startCamera(facingMode);
   }
 }
 
-async function toggleMyScreen(){
-  if(screenOn){ stopMyScreen(); return; }
+async function startCamera(facing){
   try{
-    screenStream = await navigator.mediaDevices.getDisplayMedia({video:{frameRate:15},audio:true});
+    if(cameraStream) cameraStream.getTracks().forEach(t=>t.stop());
+    const constraints = {
+      video: { facingMode: facing, width:{ideal:1280}, height:{ideal:720} }
+    };
+    cameraStream=await navigator.mediaDevices.getUserMedia(constraints);
+    cameraOn=true; screenOn=false;
+    if(screenStream){screenStream.getTracks().forEach(t=>t.stop());screenStream=null;}
+    await replaceVideoTrack(cameraStream.getVideoTracks()[0]);
+
+    // 로컬 미리보기
+    const cv=document.getElementById('cameraVideo');
+    cv.srcObject=cameraStream;
+    document.getElementById('cameraArea').style.display='block';
+    document.getElementById('cameraLabel').textContent = facing==='environment'?'📷 후면 카메라':'🤳 전면 카메라';
+    document.getElementById('btnCamera').className='btn btn-green';
+    document.getElementById('btnCamera').textContent='📷 카메라 끄기';
+    document.getElementById('btnScreen').className='btn btn-ghost';
+    document.getElementById('btnScreen').textContent='🖥️ 화면 공유';
+    log(`카메라 켜짐 (${facing==='environment'?'후면':'전면'})`,'ok');
+  }catch(e){
+    // 요청한 facing 모드가 없으면 반대로 재시도
+    if(facing==='environment'){
+      log('후면 카메라 없음, 전면으로 전환','warn');
+      facingMode='user';
+      await startCamera('user');
+    }else{
+      log('카메라 오류: '+e.message,'err');
+    }
+  }
+}
+
+// 전면/후면 전환
+async function flipCamera(){
+  if(!cameraOn) return;
+  facingMode = (facingMode==='environment') ? 'user' : 'environment';
+  await startCamera(facingMode);
+  log(`카메라 전환 → ${facingMode==='environment'?'후면':'전면'}`,'ok');
+}
+
+// 화면 공유
+async function toggleMyScreen(){
+  if(screenOn){stopMyScreen();return;}
+  try{
+    screenStream=await navigator.mediaDevices.getDisplayMedia({video:{frameRate:15},audio:true});
     screenOn=true; cameraOn=false;
-    if(cameraStream){ cameraStream.getTracks().forEach(t=>t.stop()); cameraStream=null; }
+    if(cameraStream){cameraStream.getTracks().forEach(t=>t.stop());cameraStream=null;}
     await replaceVideoTrack(screenStream.getVideoTracks()[0]);
+    document.getElementById('cameraArea').style.display='none';
     document.getElementById('btnScreen').className='btn btn-amber';
     document.getElementById('btnScreen').textContent='🖥️ 공유 중지';
     document.getElementById('btnCamera').className='btn btn-ghost';
     document.getElementById('btnCamera').textContent='📷 카메라 켜기';
-    document.getElementById('stopScreenBtn').style.display='flex';
-
-    // 내 화면 공유도 로컬 미리보기
-    document.getElementById('screenVideo').srcObject = screenStream;
-    document.getElementById('screenOwnerLabel').textContent = myName+' (나)';
+    document.getElementById('screenVideo').srcObject=screenStream;
+    document.getElementById('screenOwnerLabel').textContent=myName+' (나) 화면 공유 중';
     document.getElementById('screenArea').style.display='block';
     document.getElementById('stopScreenBtn').style.display='flex';
-
-    screenStream.getVideoTracks()[0].onended = ()=>stopMyScreen();
+    screenStream.getVideoTracks()[0].onended=()=>stopMyScreen();
     await broadcastMyState(true);
     log('화면 공유 시작','ok');
-  }catch(e){ log('화면 공유 오류: '+e.message,'err'); }
+  }catch(e){log('화면 공유 오류: '+e.message,'err');}
 }
 
 async function stopMyScreen(){
@@ -633,122 +524,202 @@ async function stopMyScreen(){
   log('화면 공유 중지','warn');
 }
 
-function showRemoteScreen(peerId, stream){
-  const pname = peers[peerId]?.name || peerId;
-  document.getElementById('screenVideo').srcObject = stream;
-  document.getElementById('screenOwnerLabel').textContent = pname + '님 화면 공유 중';
-  document.getElementById('screenArea').style.display = 'block';
-  document.getElementById('stopScreenBtn').style.display = 'none';
+function showRemoteScreen(peerId,stream){
+  const pname=peers[peerId]?.name||peerId;
+  document.getElementById('screenVideo').srcObject=stream;
+  document.getElementById('screenOwnerLabel').textContent=pname+'님 화면 공유 중';
+  document.getElementById('screenArea').style.display='block';
+  document.getElementById('stopScreenBtn').style.display='none';
 }
 function hideScreen(){
   document.getElementById('screenArea').style.display='none';
   document.getElementById('screenVideo').srcObject=null;
 }
 
-// 내 상태 Firebase에 broadcast
 async function broadcastMyState(sharing){
   if(!membersRef) return;
-  const s = sharing !== undefined ? sharing : screenOn;
-  await membersRef.child(myId).update({ muted:!micEnabled, sharing:s });
+  const s=sharing!==undefined?sharing:screenOn;
+  await membersRef.child(myId).update({muted:!micEnabled,sharing:s});
 }
 
-// ═══════════════════════════════════════════════════════
-//  RENDER
-// ═══════════════════════════════════════════════════════
-const avatarColors = ['','av-green','av-amber','av-purple','av-red','av-teal'];
+// ═══════════════════════════ RECORDING ═══════════════════════════
+async function toggleRecording(){
+  if(isRecording){ stopRecording(); return; }
+  await startRecording();
+}
 
-function initial(name){ return (name||'?')[0].toUpperCase(); }
+async function startRecording(){
+  try{
+    // AudioContext로 내 마이크 + 모든 참가자 오디오 믹싱
+    recAudioCtx = new (window.AudioContext||window.webkitAudioContext)();
+    recDest = recAudioCtx.createMediaStreamDestination();
+
+    // 내 마이크 추가
+    if(micStream && micStream.getAudioTracks().length>0){
+      const micSrc = recAudioCtx.createMediaStreamSource(micStream);
+      micSrc.connect(recDest);
+    }
+
+    // 참가자 오디오 추가
+    for(const pid in peers){
+      const p=peers[pid];
+      if(p._audioTrack){
+        try{
+          const peerStream=new MediaStream([p._audioTrack]);
+          const peerSrc=recAudioCtx.createMediaStreamSource(peerStream);
+          peerSrc.connect(recDest);
+        }catch(e){}
+      }
+    }
+
+    // 비디오 트랙 선택 (카메라 > 화면공유 순서)
+    const videoTrack = (cameraStream?.getVideoTracks()[0]) || (screenStream?.getVideoTracks()[0]) || null;
+
+    // 최종 믹싱 스트림
+    const mixedStream = new MediaStream();
+    recDest.stream.getAudioTracks().forEach(t=>mixedStream.addTrack(t));
+    if(videoTrack) mixedStream.addTrack(videoTrack);
+
+    // 지원 포맷 선택
+    const mimeType = ['video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm','video/mp4']
+      .find(m=>MediaRecorder.isTypeSupported(m)) || '';
+
+    recChunks=[];
+    mediaRecorder=new MediaRecorder(mixedStream, mimeType?{mimeType}:{});
+    mediaRecorder.ondataavailable=e=>{ if(e.data.size>0) recChunks.push(e.data); };
+    mediaRecorder.onstop=()=>saveRecording();
+    mediaRecorder.start(1000);
+
+    isRecording=true;
+    recSec=0;
+    document.getElementById('recBanner').classList.add('active');
+    document.getElementById('btnRec').className='btn btn-red';
+    document.getElementById('btnRec').textContent='⏹ 녹화 중지';
+    recInterval=setInterval(()=>{
+      recSec++;
+      const m=String(Math.floor(recSec/60)).padStart(2,'0');
+      const s=String(recSec%60).padStart(2,'0');
+      document.getElementById('recTimer').textContent=m+':'+s;
+    },1000);
+    log('녹화 시작 (참가자 음성 포함)','ok');
+  }catch(e){
+    log('녹화 오류: '+e.message,'err');
+  }
+}
+
+function stopRecording(){
+  if(!mediaRecorder||!isRecording) return;
+  mediaRecorder.stop();
+  isRecording=false;
+  clearInterval(recInterval);
+  document.getElementById('recBanner').classList.remove('active');
+  document.getElementById('btnRec').className='btn btn-purple';
+  document.getElementById('btnRec').textContent='⏺ 녹화 시작';
+  document.getElementById('recTimer').textContent='00:00';
+  if(recAudioCtx){recAudioCtx.close().catch(()=>{}); recAudioCtx=null; recDest=null;}
+  log('녹화 중지 — 파일 저장 중...','warn');
+}
+
+function saveRecording(){
+  if(recChunks.length===0){log('저장할 녹화 데이터 없음','err');return;}
+  const blob=new Blob(recChunks,{type:recChunks[0].type||'video/webm'});
+  const ext = blob.type.includes('mp4')?'mp4':'webm';
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  const now=new Date();
+  const ts=`${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}_${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}`;
+  a.download=`LinkRoom_${ts}.${ext}`;
+  a.href=url;
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),5000);
+  log(`녹화 파일 저장됨: ${a.download}`,'ok');
+}
+
+// ═══════════════════════════ RENDER ═══════════════════════════
+function initial(n){return(n||'?')[0].toUpperCase()}
 
 function renderMe(){
-  let card = document.getElementById('pc-'+myId);
-  if(!card){
-    card = document.createElement('div');
-    card.id = 'pc-'+myId;
-    card.className = 'peer-card me-card';
-    document.getElementById('pGrid').prepend(card);
-  }
-  card.innerHTML = `
-    <div class="peer-avatar ${avatarColors[myColorIdx]}">${initial(myName)}</div>
+  let card=document.getElementById('pc-'+myId);
+  if(!card){card=document.createElement('div');card.id='pc-'+myId;card.className='peer-card me-card';document.getElementById('pGrid').prepend(card);}
+  card.innerHTML=`
+    <div class="peer-avatar ${AV_COLORS[myColorIdx]}">${initial(myName)}</div>
     <div class="peer-name">${esc(myName)} <span style="font-size:10px;color:var(--muted)">(나)</span></div>
     <div class="peer-tags">
-      ${!micEnabled?'<span class="tag tag-muted">🔇 음소거</span>':'<span class="tag tag-speaking">🎙️ 말할 수 있음</span>'}
-      ${screenOn?'<span class="tag tag-sharing">🖥️ 공유 중</span>':''}
-    </div>
-    <button class="btn btn-sm peer-mute-btn ${micEnabled?'btn-green':'btn-ghost'}" onclick="toggleMyMic()" style="display:flex;margin-top:2px">
-      ${micEnabled?'🎙️ 끄기':'🎙️ 켜기'}
-    </button>
-  `;
+      ${!micEnabled?'<span class="tag tag-muted">🔇 음소거</span>':'<span class="tag tag-speaking">🎙️ 켜짐</span>'}
+      ${screenOn?'<span class="tag tag-sharing">🖥️ 공유</span>':''}
+      ${cameraOn?'<span class="tag tag-sharing">📷 카메라</span>':''}
+    </div>`;
 }
 
 function renderPeerCard(peerId){
-  const p = peers[peerId]; if(!p) return;
-  let card = document.getElementById('pc-'+peerId);
-  if(!card){
-    card = document.createElement('div');
-    card.id = 'pc-'+peerId;
-    card.className = 'peer-card';
-    document.getElementById('pGrid').appendChild(card);
-  }
-  card.innerHTML = `
-    <div class="peer-avatar ${avatarColors[p.colorIdx]||''}">${initial(p.name)}</div>
+  const p=peers[peerId];if(!p)return;
+  let card=document.getElementById('pc-'+peerId);
+  if(!card){card=document.createElement('div');card.id='pc-'+peerId;card.className='peer-card';document.getElementById('pGrid').appendChild(card);}
+  card.innerHTML=`
+    <div class="peer-avatar ${AV_COLORS[p.colorIdx]||AV_COLORS[0]}">${initial(p.name)}</div>
     <div class="peer-name">${esc(p.name)}</div>
     <div class="peer-tags">
-      ${p.muted?'<span class="tag tag-muted">🔇 음소거</span>':'<span class="tag tag-speaking">🎙️ 대화 중</span>'}
+      ${p.muted?'<span class="tag tag-muted">🔇 음소거</span>':'<span class="tag tag-speaking">🎙️ 켜짐</span>'}
       ${p.sharing?'<span class="tag tag-sharing">🖥️ 공유 중</span>':''}
-    </div>
-  `;
+    </div>`;
 }
 
-function updatePeerCard(peerId, info){
-  if(!peers[peerId]) return;
-  peers[peerId].muted  = !!info.muted;
-  peers[peerId].sharing= !!info.sharing;
-  if(info.name) peers[peerId].name = info.name;
+function updatePeerCard(peerId,info){
+  if(!peers[peerId])return;
+  peers[peerId].muted=!!info.muted;
+  peers[peerId].sharing=!!info.sharing;
+  if(info.name)peers[peerId].name=info.name;
   renderPeerCard(peerId);
-
-  // 화면공유 상태 변경
-  if(!info.sharing && document.getElementById('screenOwnerLabel').textContent.includes(peers[peerId].name)){
-    hideScreen();
-  }
+  if(!info.sharing&&document.getElementById('screenOwnerLabel').textContent.includes(peers[peerId].name)) hideScreen();
 }
 
 function updatePeerCount(){
-  const n = 1+Object.keys(peers).length;
-  document.getElementById('pCount').textContent = n+'명 참여 중';
+  document.getElementById('pCount').textContent=(1+Object.keys(peers).length)+'명 참여 중';
 }
 
-// ═══════════════════════════════════════════════════════
-//  LEAVE
-// ═══════════════════════════════════════════════════════
+function destroyPeer(peerId){
+  const p=peers[peerId];if(!p)return;
+  p.pc.close();
+  if(p._audioEl){p._audioEl.pause();p._audioEl=null;}
+  delete peers[peerId];
+  document.getElementById('pc-'+peerId)?.remove();
+  updatePeerCount();
+  if(document.getElementById('screenOwnerLabel').textContent.includes(p.name)) hideScreen();
+}
+
+// ═══════════════════════════ LEAVE ═══════════════════════════
 async function leaveRoom(){
+  if(isRecording) stopRecording();
   if(screenOn) await stopMyScreen();
   micStream?.getTracks().forEach(t=>t.stop());
   cameraStream?.getTracks().forEach(t=>t.stop());
+  document.getElementById('cameraArea').style.display='none';
   Object.keys(peers).forEach(destroyPeer);
   if(membersRef) await membersRef.child(myId).remove().catch(()=>{});
   if(roomRef) roomRef.child('signals/'+myId).off();
   membersRef?.off(); roomRef?.off();
-  roomRef=null; membersRef=null; roomId=null;
-  micStream=null; cameraStream=null; screenStream=null;
-  micEnabled=false; cameraOn=false; screenOn=false;
+  roomRef=null;membersRef=null;roomId=null;
+  micStream=null;cameraStream=null;screenStream=null;
+  micEnabled=false;cameraOn=false;screenOn=false;
   document.getElementById('pGrid').innerHTML='';
-  show('room',false); show('lobby',true);
-  document.getElementById('btnMic').className='btn btn-ghost'; document.getElementById('btnMic').textContent='🎙️ 마이크 켜기';
-  document.getElementById('btnCamera').className='btn btn-ghost'; document.getElementById('btnCamera').textContent='📷 카메라 켜기';
-  document.getElementById('btnScreen').className='btn btn-ghost'; document.getElementById('btnScreen').textContent='🖥️ 화면 공유';
+  show('room',false);show('lobby',true);
+  ['btnMic','btnCamera','btnScreen'].forEach(id=>{
+    document.getElementById(id).className='btn btn-ghost';
+  });
+  document.getElementById('btnMic').textContent='🎙️ 마이크 켜기';
+  document.getElementById('btnCamera').textContent='📷 카메라 켜기';
+  document.getElementById('btnScreen').textContent='🖥️ 화면 공유';
+  document.getElementById('btnRec').className='btn btn-purple';
+  document.getElementById('btnRec').textContent='⏺ 녹화 시작';
   log('통화 종료');
 }
 
-// ═══════════════════════════════════════════════════════
-//  UTILS
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════ UTILS ═══════════════════════════
 function show(id,v){
-  const el=document.getElementById(id);
-  if(!el) return;
-  if(v){ el.style.display = (id==='lobby')?'flex':'flex'; }
-  else el.style.display='none';
+  const el=document.getElementById(id);if(!el)return;
+  el.style.display=v?'flex':'none';
 }
-function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
 function setStatus(lbl,cls){
   document.getElementById('sDot').className='status-dot '+(cls||'');
   document.getElementById('sLabel').textContent=lbl;
@@ -761,8 +732,7 @@ function log(msg,type=''){
   const el=document.createElement('p');
   el.className=type;
   el.innerHTML=`<span class="ts">[${new Date().toLocaleTimeString('ko-KR')}]</span> <span class="m">${msg}</span>`;
-  p.appendChild(el);
-  p.scrollTop=p.scrollHeight;
+  p.appendChild(el);p.scrollTop=p.scrollHeight;
 }
 document.addEventListener('keydown',e=>{
   if(e.key==='Enter'&&document.activeElement.id==='joinCode') joinRoom();
