@@ -361,7 +361,22 @@ function initPeer(peerId,info,iAmCaller){
 
   pc.onconnectionstatechange=()=>{
     const st=pc.connectionState;
-    if(st==='connected'){log(`${peers[peerId]?.name} 연결됨`,'ok');renderPeerCard(peerId);}
+    if(st==='connected'){
+      log(`${peers[peerId]?.name} 연결됨`,'ok');
+      renderPeerCard(peerId);
+      // 연결 완료 시 현재 활성 비디오 트랙을 확실히 전달
+      const vs = cameraStream || screenStream;
+      if(vs){
+        const vt = vs.getVideoTracks()[0];
+        if(vt){
+          const sender = peers[peerId]?.pc.getSenders().find(s=>s.track&&s.track.kind==='video');
+          if(sender) sender.replaceTrack(vt).catch(()=>{});
+          else peers[peerId]?.pc.addTrack(vt, vs);
+        }
+      }
+      // 내 공유 상태도 재broadcast (신규 참가자가 UI 반영하도록)
+      broadcastMyState(screenOn || cameraOn);
+    }
     if(st==='failed'||st==='closed') destroyPeer(peerId);
   };
 
@@ -387,13 +402,18 @@ function drainIce(peerId){
 function addMyTracksToPeer(peerId){
   const p=peers[peerId];if(!p)return;
   const pc=p.pc;
+  // 마이크 오디오
   if(micStream) micStream.getAudioTracks().forEach(t=>{
     if(!pc.getSenders().find(s=>s.track===t)) pc.addTrack(t,micStream);
   });
-  const vs=screenStream||cameraStream;
-  if(vs) vs.getVideoTracks().forEach(t=>{
-    if(!pc.getSenders().find(s=>s.track===t)) pc.addTrack(t,vs);
-  });
+  // 현재 활성 비디오 (카메라 또는 화면공유)
+  const vs = cameraStream || screenStream;
+  if(vs){
+    const vt = vs.getVideoTracks()[0];
+    if(vt && !pc.getSenders().find(s=>s.track&&s.track.kind==='video')){
+      pc.addTrack(vt, vs);
+    }
+  }
 }
 
 async function replaceVideoTrack(track){
@@ -537,12 +557,13 @@ async function stopMyScreen(){
   log('화면 공유 중지','warn');
 }
 
-function showRemoteScreen(peerId,stream){
-  const pname=peers[peerId]?.name||peerId;
-  document.getElementById('screenVideo').srcObject=stream;
-  document.getElementById('screenOwnerLabel').textContent=pname+'님 화면 공유 중';
-  document.getElementById('screenArea').style.display='block';
-  document.getElementById('stopScreenBtn').style.display='none';
+function showRemoteScreen(peerId, stream){
+  const pname = peers[peerId]?.name || peerId;
+  const isSharing = peers[peerId]?.sharing;
+  document.getElementById('screenVideo').srcObject = stream;
+  document.getElementById('screenOwnerLabel').textContent = pname + (isSharing ? '님 화면 공유 중' : '님 카메라 공유 중');
+  document.getElementById('screenArea').style.display = 'block';
+  document.getElementById('stopScreenBtn').style.display = 'none';
 }
 function hideScreen(){
   document.getElementById('screenArea').style.display='none';
