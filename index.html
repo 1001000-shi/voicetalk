@@ -440,8 +440,10 @@ async function toggleMyCamera(){
     cameraStream?.getTracks().forEach(t=>t.stop()); cameraStream=null; cameraOn=false;
     await replaceVideoTrack(null);
     document.getElementById('cameraArea').style.display='none';
+    hideScreen();
     document.getElementById('btnCamera').className='btn btn-ghost';
     document.getElementById('btnCamera').textContent='📷 카메라 켜기';
+    await broadcastMyState(false);
     log('카메라 끄기');
   }else{
     await startCamera(facingMode);
@@ -459,16 +461,27 @@ async function startCamera(facing){
     if(screenStream){screenStream.getTracks().forEach(t=>t.stop());screenStream=null;}
     await replaceVideoTrack(cameraStream.getVideoTracks()[0]);
 
-    // 로컬 미리보기
+    // 로컬 미리보기 (작은 썸네일)
     const cv=document.getElementById('cameraVideo');
     cv.srcObject=cameraStream;
     document.getElementById('cameraArea').style.display='block';
-    document.getElementById('cameraLabel').textContent = facing==='environment'?'📷 후면 카메라':'🤳 전면 카메라';
+    const facingLabel = facing==='environment'?'📷 후면 카메라':'🤳 전면 카메라';
+    document.getElementById('cameraLabel').textContent = facingLabel;
+
+    // 큰 화면에도 표시 (다른 참가자들도 볼 수 있도록)
+    document.getElementById('screenVideo').srcObject = cameraStream;
+    document.getElementById('screenOwnerLabel').textContent = myName + ' · ' + facingLabel;
+    document.getElementById('screenArea').style.display = 'block';
+    document.getElementById('stopScreenBtn').style.display = 'none'; // 카메라는 별도 버튼으로 끔
+
     document.getElementById('btnCamera').className='btn btn-green';
     document.getElementById('btnCamera').textContent='📷 카메라 끄기';
     document.getElementById('btnScreen').className='btn btn-ghost';
     document.getElementById('btnScreen').textContent='🖥️ 화면 공유';
-    log(`카메라 켜짐 (${facing==='environment'?'후면':'전면'})`,'ok');
+
+    // 카메라 공유 상태 broadcast
+    await broadcastMyState(true);
+    log(`카메라 켜짐 (${facing==='environment'?'후면':'전면'}) — 참가자에게 공유 중`,'ok');
   }catch(e){
     // 요청한 facing 모드가 없으면 반대로 재시도
     if(facing==='environment'){
@@ -486,7 +499,7 @@ async function flipCamera(){
   if(!cameraOn) return;
   facingMode = (facingMode==='environment') ? 'user' : 'environment';
   await startCamera(facingMode);
-  log(`카메라 전환 → ${facingMode==='environment'?'후면':'전면'}`,'ok');
+  log(`카메라 전환 → ${facingMode==='environment'?'후면':'전면'} (참가자에게도 반영됨)`,'ok');
 }
 
 // 화면 공유
